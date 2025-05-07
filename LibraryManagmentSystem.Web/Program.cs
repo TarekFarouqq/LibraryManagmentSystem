@@ -1,4 +1,12 @@
 using LibraryManagmentSystem.BLL.AutoMapper;
+using LibraryManagmentSystem.DAL;
+using LibraryManagmentSystem.BLL;
+using LibraryManagmentSystem.BLL.Services;
+using LibraryManagmentSystem.DAL.Repos;
+using Microsoft.EntityFrameworkCore;
+using static LibraryManagmentSystem.DAL.Interfaces.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using static LibraryManagmentSystem.BLL.Interfaces.Interfaces;
 
 
 namespace LibraryManagmentSystem.Web
@@ -12,7 +20,18 @@ namespace LibraryManagmentSystem.Web
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            //AutoMapper
+            // DBContext 
+            builder.Services.AddDbContext<LibraryDBContext>(options => options.UseInMemoryDatabase("LibraryDB"));
+
+            // Author 
+            builder.Services.AddScoped<IAuthorRepository, AuthorRepo>();
+            builder.Services.AddScoped<IAuthorService, AuthorService>();
+
+            // Book 
+            builder.Services.AddScoped<IBookRepository, BookRepo>();
+            builder.Services.AddScoped<IBookService, BookService>();
+
+            // AutoMapper
             builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
             var app = builder.Build();
@@ -21,7 +40,6 @@ namespace LibraryManagmentSystem.Web
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
