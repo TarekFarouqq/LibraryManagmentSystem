@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LibraryManagmentSystem.BLL.DTOs;
 using LibraryManagmentSystem.Models;
 
 namespace LibraryManagmentSystem.BLL.Interfaces
@@ -12,22 +13,22 @@ namespace LibraryManagmentSystem.BLL.Interfaces
 
         public interface IAuthorService
         {
-            Task AddAsync(Author author);
-            Task UpdateAsync(Author author);
+            Task AddAsync(InsertAuthorDTO author);
+            Task UpdateAsync(InsertAuthorDTO author);
             Task DeleteAsync(int id);
-            Task<Author?> GetByIdAsync(int id);
-            Task<List<Author>> GetAllAsync();
+            Task<ReadAuthorDTO?> GetByIdAsync(int id);
+            Task<List<ReadAuthorDTO>> GetAllAsync();
 
         }
 
 
         public interface IBookService
         {
-            Task AddAsync(Author author);
-            Task UpdateAsync(Author author);
+            Task AddAsync(Book book);
+            Task UpdateAsync(Book book);
             Task DeleteAsync(int id);
-            Task<Author?> GetByIdAsync(int id);
-            Task<List<Author>> GetAllAsync();
+            Task<Book?> GetByIdAsync(int id);
+            Task<List<Book>> GetAllAsync();
 
         }
     }

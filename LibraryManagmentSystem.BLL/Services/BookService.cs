@@ -18,23 +18,23 @@ namespace LibraryManagmentSystem.BLL.Services
         {
             bookRepo = _bookRepo;
         }
-        Task<List<Author>> IBookService.GetAllAsync()
+        Task<List<Book>> IBookService.GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        Task<Author?> IBookService.GetByIdAsync(int id)
+        Task<Book?> IBookService.GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        Task IBookService.AddAsync(Author author)
+        Task IBookService.AddAsync(Book book)
         {
             throw new NotImplementedException();
         }
 
         
-        Task IBookService.UpdateAsync(Author author)
+        Task IBookService.UpdateAsync(Book book)
         {
             throw new NotImplementedException();
         }
@@ -43,5 +43,11 @@ namespace LibraryManagmentSystem.BLL.Services
         {
             throw new NotImplementedException();
         }
+
+
+
+
+
+      
     }
 }

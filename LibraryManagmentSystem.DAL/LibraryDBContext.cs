@@ -21,10 +21,23 @@ namespace LibraryManagmentSystem.DAL
             modelBuilder.Entity<Author>()
                 .HasIndex(a => a.FullName)
                 .IsUnique();
+        
 
-            modelBuilder.Entity<Author>()
+           modelBuilder.Entity<Author>()
                 .HasIndex(a => a.Email)
                 .IsUnique();
+
+            modelBuilder.Entity<Author>()
+                .Property(a => a.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Book>()
+                .Property(a => a.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<BorrowTransaction>()
+                .Property(a => a.Id)
+                .ValueGeneratedOnAdd();
         }
     }
 }
