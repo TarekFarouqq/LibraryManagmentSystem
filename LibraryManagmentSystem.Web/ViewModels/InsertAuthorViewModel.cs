@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LibraryManagmentSystem.Models;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace LibraryManagmentSystem.BLL.DTOs
+namespace LibraryManagmentSystem.Web.ViewModels
 {
-    public class InsertAuthorDTO
+    public class InsertAuthorViewModel
     {
 
 
@@ -24,6 +18,5 @@ namespace LibraryManagmentSystem.BLL.DTOs
 
         [MaxLength(300)]
         public string? Bio { get; set; }
-
     }
 }

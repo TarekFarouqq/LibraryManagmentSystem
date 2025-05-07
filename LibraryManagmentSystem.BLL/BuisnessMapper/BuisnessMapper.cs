@@ -9,7 +9,7 @@ using LibraryManagmentSystem.Models;
 
 namespace LibraryManagmentSystem.BLL.BuisnessMapper
 {
-    class BuisnessMapper : Profile
+     public class BuisnessMapper : Profile
     {
         public BuisnessMapper()
         {
@@ -18,6 +18,7 @@ namespace LibraryManagmentSystem.BLL.BuisnessMapper
                 .ForMember(dest => dest.Books,option => option.MapFrom(src => src.Books.Select(b=> b.Title).ToList()));
 
             CreateMap<InsertAuthorDTO, Author>();
+            CreateMap<UpdateAuthorDTO, Author>();
 
         }
     }

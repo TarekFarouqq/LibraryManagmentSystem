@@ -21,12 +21,14 @@ namespace LibraryManagmentSystem.DAL
                 {
                     FullName = "John Ronald Reuel Tolkien",
                     Email = "tolkien@example.com",
+                    Website = "www.tolkien.com",
                     Bio = "Author of The Lord of the Rings"
                 },
                 new Author
                 {
                     FullName = "Joanne Kathleen Rowling",
                     Email = "rowling@example.com",
+                    Website = "www.jkrowling.com",
                     Bio = "Author of Harry Potter series"
                 }
             };
@@ -45,6 +47,12 @@ namespace LibraryManagmentSystem.DAL
                 new Book
                 {
                     Title = "Harry Potter and the Philosopher's Stone",
+                    Genre = BookGenre.Fantasy,
+                    AuthorId = authors[1].Id
+                },
+                new Book
+                {
+                    Title = " Second Book",
                     Genre = BookGenre.Fantasy,
                     AuthorId = authors[1].Id
                 }

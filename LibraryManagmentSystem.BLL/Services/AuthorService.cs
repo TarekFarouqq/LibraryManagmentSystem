@@ -51,7 +51,7 @@ namespace LibraryManagmentSystem.BLL.Services
             await authorRepo.AddAsync(authorEntity);
         }
 
-        async Task IAuthorService.UpdateAsync(InsertAuthorDTO author)
+        async Task IAuthorService.UpdateAsync(UpdateAuthorDTO author)
         {
             if (author == null)
             {

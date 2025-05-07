@@ -1,4 +1,6 @@
 using LibraryManagmentSystem.BLL.AutoMapper;
+using LibraryManagmentSystem.BLL.BuisnessMapper;
+
 using LibraryManagmentSystem.DAL;
 using LibraryManagmentSystem.BLL;
 using LibraryManagmentSystem.BLL.Services;
@@ -33,8 +35,9 @@ namespace LibraryManagmentSystem.Web
 
             // AutoMapper
             builder.Services.AddAutoMapper(typeof(WebMapper).Assembly);
+            builder.Services.AddAutoMapper(typeof(BuisnessMapper).Assembly);
 
-            
+
 
             var app = builder.Build();
 
@@ -61,7 +64,7 @@ namespace LibraryManagmentSystem.Web
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{controller=Author}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
             app.Run();
