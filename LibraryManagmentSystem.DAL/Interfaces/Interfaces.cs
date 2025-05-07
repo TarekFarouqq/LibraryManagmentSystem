@@ -22,11 +22,11 @@ namespace LibraryManagmentSystem.DAL.Interfaces
 
         public interface IBookRepository
         {
-            Task AddAsync(Author author);
-            Task UpdateAsync(Author author);
+            Task AddAsync(Book book);
+            Task UpdateAsync(Book book);
             Task DeleteAsync(int id);
-            Task<Author?> GetByIdAsync(int id);
-            Task<List<Author>> GetAllAsync();
+            Task<Book?> GetByIdAsync(int id);
+            Task<List<Book>> GetAllAsync();
 
         }
 

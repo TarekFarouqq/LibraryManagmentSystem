@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LibraryManagmentSystem.Models;
+using Microsoft.EntityFrameworkCore;
 using static LibraryManagmentSystem.DAL.Interfaces.Interfaces;
 
 namespace LibraryManagmentSystem.DAL.Repos
@@ -18,31 +19,54 @@ namespace LibraryManagmentSystem.DAL.Repos
             db = _db;
         }
 
-        Task<List<Author>> IBookRepository.GetAllAsync()
+        async Task<List<Book>> IBookRepository.GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await db.Books
+                .AsNoTracking()
+                .Include(a => a.Author )
+                .ToListAsync();
         }
 
-        Task<Author?> IBookRepository.GetByIdAsync(int id)
+        async Task<Book?> IBookRepository.GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await db.Books
+                .Include(a => a.Author)
+                .FirstOrDefaultAsync(a => a.Id == id);
         }
 
-        Task IBookRepository.AddAsync(Author author)
+        Task IBookRepository.AddAsync(Book book)
         {
-            throw new NotImplementedException();
+            if (book == null)
+            {
+                throw new ArgumentNullException(nameof(book));
+            }
+
+            db.Books.Add(book);
+            return db.SaveChangesAsync();
         }
 
-        Task IBookRepository.UpdateAsync(Author author)
+        Task IBookRepository.UpdateAsync(Book book)
         {
-            throw new NotImplementedException();
+            if (book == null)
+            {
+                throw new ArgumentNullException(nameof(book));
+            }
+
+            db.Entry(book).State = EntityState.Modified;
+            return db.SaveChangesAsync();
         }
 
-        Task IBookRepository.DeleteAsync(int id)
+        async Task IBookRepository.DeleteAsync(int id)
         {
-            throw new NotImplementedException();
-        }
+            var book = await ((IBookRepository)this).GetByIdAsync(id);
+            if (book == null)
+            {
+                throw new KeyNotFoundException($"Book with ID {id} not found.");
+            }
 
+            db.Books.Remove(book);
+            await db.SaveChangesAsync();
+        }
 
 
     }
