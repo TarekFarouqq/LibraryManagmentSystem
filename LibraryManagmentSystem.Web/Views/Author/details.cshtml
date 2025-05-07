@@ -1,0 +1,44 @@
+﻿@using LibraryManagmentSystem.Web.ViewModels;
+@model ReadAuthorViewModel
+@{
+    ViewBag.tilte = "Author Details";
+}
+
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="card text-center col-12 col-md-6 shadow ">
+        <div class="card-header">
+            Details
+        </div>
+        <div class="card-body">
+            <h3 class="card-title fst-italic ">@Model.FullName</h3>
+            <p class="card-text">Email : @Model.Email</p>
+            <p class="card-text">Website : @Model.Website</p>
+            <p class="card-text">ADDRESS : @Model.Bio</p>
+            <p class="card-text">
+                @if (Model.Books != null && Model.Books.Any())
+                {
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button"
+                                id="booksDropdown-@Model.Id" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            View Books (@Model.Books.Count)
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="booksDropdown-@Model.Id">
+                            @foreach (var book in Model.Books)
+                            {
+                                <li><a class="dropdown-item">>@book</a></li>
+                            }
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <span class="text-muted">No books available</span>
+                }
+            </p>
+
+            <a asp-controller="author" asp-action="index" class="btn btn-danger btn-sm">Back To List</a>
+        </div>
+
+    </div>
+</div>

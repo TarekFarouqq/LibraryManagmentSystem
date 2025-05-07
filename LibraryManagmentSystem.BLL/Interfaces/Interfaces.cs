@@ -8,13 +8,13 @@ using LibraryManagmentSystem.Models;
 
 namespace LibraryManagmentSystem.BLL.Interfaces
 {
-   public class Interfaces
+    public class Interfaces
     {
 
         public interface IAuthorService
         {
             Task AddAsync(InsertAuthorDTO author);
-            Task UpdateAsync(InsertAuthorDTO author);
+            Task UpdateAsync(UpdateAuthorDTO author);
             Task DeleteAsync(int id);
             Task<ReadAuthorDTO?> GetByIdAsync(int id);
             Task<List<ReadAuthorDTO>> GetAllAsync();
@@ -33,3 +33,5 @@ namespace LibraryManagmentSystem.BLL.Interfaces
         }
     }
 }
+
+
