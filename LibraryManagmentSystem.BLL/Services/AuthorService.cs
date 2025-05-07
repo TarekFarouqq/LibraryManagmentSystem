@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using LibraryManagmentSystem.BLL.DTOs;
 using LibraryManagmentSystem.Models;
 using static LibraryManagmentSystem.BLL.Interfaces.Interfaces;
 using static LibraryManagmentSystem.DAL.Interfaces.Interfaces;
+
+
 
 namespace LibraryManagmentSystem.BLL.Services
 {
@@ -13,36 +17,60 @@ namespace LibraryManagmentSystem.BLL.Services
     {
 
         private readonly IAuthorRepository authorRepo;
+        private readonly IMapper mapper;
 
-        public AuthorService(IAuthorRepository _authorRepo)
+        public AuthorService(IAuthorRepository _authorRepo, IMapper _mapper)
         {
             authorRepo = _authorRepo;
+            mapper = _mapper;
         }
 
-        Task<List<Author>> IAuthorService.GetAllAsync()
+        async Task<List<ReadAuthorDTO>> IAuthorService.GetAllAsync()
         {
-            throw new NotImplementedException();
+            var authors = await authorRepo.GetAllAsync(); 
+            return mapper.Map<List<ReadAuthorDTO>>(authors);
         }
 
-        Task<Author?> IAuthorService.GetByIdAsync(int id)
+        async Task<ReadAuthorDTO?> IAuthorService.GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var author = await authorRepo.GetByIdAsync(id);
+            if (author == null) return null;
+            return mapper.Map<ReadAuthorDTO>(author);
+
+
         }
 
-        Task IAuthorService.AddAsync(Author author)
+        async Task IAuthorService.AddAsync(InsertAuthorDTO newAuthor)
         {
-            throw new NotImplementedException();
+            if (newAuthor == null)
+            {
+                throw new ArgumentException("Invalid author data.");
+            }
+
+            var authorEntity = mapper.Map<Author>(newAuthor);
+            await authorRepo.AddAsync(authorEntity);
         }
 
-        Task IAuthorService.UpdateAsync(Author author)
+        async Task IAuthorService.UpdateAsync(InsertAuthorDTO author)
         {
-            throw new NotImplementedException();
+            if (author == null)
+            {
+                throw new ArgumentException("Invalid author data.");
+            }
+
+            var authorEntity = mapper.Map<Author>(author);
+            await authorRepo.UpdateAsync(authorEntity);
         }
 
-        Task IAuthorService.DeleteAsync(int id)
+        async Task IAuthorService.DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            if (id <= 0) 
+            {
+                throw new ArgumentException("Invalid Author ID.");
+            }
+            await authorRepo.DeleteAsync(id); 
         }
 
+       
     }
 }

@@ -32,7 +32,7 @@ namespace LibraryManagmentSystem.Web
             builder.Services.AddScoped<IBookService, BookService>();
 
             // AutoMapper
-            builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+            builder.Services.AddAutoMapper(typeof(WebMapper).Assembly);
 
             
 
