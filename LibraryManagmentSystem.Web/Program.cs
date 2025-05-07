@@ -34,7 +34,17 @@ namespace LibraryManagmentSystem.Web
             // AutoMapper
             builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
+            
+
             var app = builder.Build();
+
+            //Dummy Data For Db Initialization
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<LibraryDBContext>();
+                DbInitializer.Initialize(context); 
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

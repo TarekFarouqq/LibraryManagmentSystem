@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LibraryManagmentSystem.Models;
+using Microsoft.EntityFrameworkCore;
 using static LibraryManagmentSystem.DAL.Interfaces.Interfaces;
 
 namespace LibraryManagmentSystem.DAL.Repos
@@ -18,34 +19,53 @@ namespace LibraryManagmentSystem.DAL.Repos
             db = _db;
         }
 
-        Task<List<Author>> IAuthorRepository.GetAllAsync()
+        async Task<List<Author>> IAuthorRepository.GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await db.Authors
+                .AsNoTracking()
+                .Include(a => a.Books)
+                .ToListAsync();
         }
 
-        Task<Author?> IAuthorRepository.GetByIdAsync(int id)
+        async Task<Author?> IAuthorRepository.GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await db.Authors
+                .Include(a => a.Books)
+                .FirstOrDefaultAsync(a => a.Id == id);
         }
-        
+
         Task IAuthorRepository.AddAsync(Author author)
         {
-            throw new NotImplementedException();
+            if (author == null)
+            {
+                throw new ArgumentNullException(nameof(author));
+            }
+
+            db.Authors.Add(author);
+            return db.SaveChangesAsync();
         }
 
         Task IAuthorRepository.UpdateAsync(Author author)
         {
-            throw new NotImplementedException();
+            if (author == null)
+            {
+                throw new ArgumentNullException(nameof(author));
+            }
+
+            db.Entry(author).State = EntityState.Modified;
+            return db.SaveChangesAsync();
         }
 
-        Task IAuthorRepository.DeleteAsync(int id)
+        async Task IAuthorRepository.DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var author = await ((IAuthorRepository)this).GetByIdAsync(id);
+            if (author == null)
+            {
+                throw new KeyNotFoundException($"Author with ID {id} not found.");
+            }
+
+            db.Authors.Remove(author);
+            await db.SaveChangesAsync(); 
         }
-
-        
-        
-
-        
     }
 }
