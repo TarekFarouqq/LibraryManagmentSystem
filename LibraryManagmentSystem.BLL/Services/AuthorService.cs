@@ -62,13 +62,24 @@ namespace LibraryManagmentSystem.BLL.Services
             await authorRepo.UpdateAsync(authorEntity);
         }
 
-        async Task IAuthorService.DeleteAsync(int id)
+        async Task<bool> IAuthorService.DeleteAsync(int id)
         {
             if (id <= 0) 
             {
-                throw new ArgumentException("Invalid Author ID.");
+                return false;
             }
-            await authorRepo.DeleteAsync(id); 
+
+            var author = await authorRepo.GetByIdAsync(id);
+            if (author == null)
+            {
+                return false;
+            }
+            if ( author.Books.ToList().Count() > 0)
+            {
+                return false;
+            }
+            await authorRepo.DeleteAsync(id);
+            return true;
         }
 
        

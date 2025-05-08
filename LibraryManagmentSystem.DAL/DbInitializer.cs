@@ -226,14 +226,8 @@ namespace LibraryManagmentSystem.DAL
                         Genre = BookGenre.History,
                         AuthorId = authors[5].Id,
                         Description = "A futuristic society where happiness is controlled and individuality suppressed"
-                    },
-                    new Book
-                    {
-                        Title = "Moby-Dick",
-                        Genre = BookGenre.Adventure,
-                        AuthorId = authors[6].Id,
-                        Description = "Captain Ahab's obsessive quest to hunt the white whale"
                     }
+                    
 
 
 
