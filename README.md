@@ -50,8 +50,6 @@ Implemented to decouple layers and follow SOLID principles using built-in ASP.NE
 - List of all books with current status (Available / Borrowed)
 - Filtering:
   - By status
-  - Borrow date
-  - Return date
 - Borrowing:
   - Can borrow if the book is available
   - Sets `BorrowedDate` when borrowed
