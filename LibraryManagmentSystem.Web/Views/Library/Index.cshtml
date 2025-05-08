@@ -1,0 +1,100 @@
+﻿@using LibraryManagmentSystem.Web.ViewModels
+@using LibraryManagmentSystem.Web.ViewModels.BookVMs
+@model List<ReadBookViewModel>
+
+
+
+
+@{
+    ViewData["Title"] = "Books";
+    int filter = ViewBag.Filter != null ? (int)ViewBag.Filter : 0;
+    
+}
+
+
+<div class="container">
+    <div class=" my-3 company position-relative">
+        <h1 class="pb-4 color  position-relative  fst-italic text-center">Library</h1>
+    </div>
+    <div class="filter-card shadow-sm p-3 rounded-3 mb-4">
+        <form asp-controller="Library" asp-action="Index" method="get" class="d-flex flex-wrap align-items-center gap-3 mb-0">
+            <select id="filter" name="filter" class="form-select filter-select" onchange="this.form.submit()">
+                <option value="0" selected="@(filter == 0)">All Books</option>
+                <option value="1" selected="@(filter == 1)">Available</option>
+                <option value="2" selected="@(filter == 2)">Borrowed</option>
+            </select>
+        </form>
+    </div>
+
+    <table class="table table-light table-striped text-center mt-3">
+        <thead>
+            <tr>
+                <th class="text-start ps-4">Book</th>
+                <th>Author</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var book in Model)
+            {
+
+                <tr class="@(book.IsAvailable ? "table-success" : "table-danger") ">
+                    <td class ="text-start fw-medium ps-4">@book.Title</td>
+                    <td>@book.AuthorName</td>
+                    @if (@book.IsAvailable)
+                    {
+                        <td class="text-success">Available</td>
+                    }
+                    else 
+                    {
+                        <td>Not Available</td>
+                    }
+
+
+                    <td>
+                        @if (@book.IsAvailable)
+                        {
+                            <a asp-controller="Library" asp-action="borrowDetails" asp-route-id="@book.Id"><button class="btn btn-sm btn-success text-light  btn-ed mx-2">Borrow</button></a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Library" asp-action="borrowDetails" asp-route-id="@book.Id"><button class="btn btn-sm btn-danger  btn-ed mx-2">Return</button></a>
+                        }
+                        
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+    @if (ViewBag.TotalPages > 1)
+{
+    <nav aria-label="Page navigation" class="mt-5">
+        <ul class="pagination justify-content-center">
+            
+
+            <!-- Page Numbers -->
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <li class="fw-bold fs-3  page-item @(i == ViewBag.PageNum ? "active" : "")">
+                    <a class="page-link shadow-sm" 
+                       asp-controller="Library" 
+                       asp-action="Index" 
+                       asp-route-pageNum="@i" 
+                       asp-route-filter="@filter">
+                        @i
+                    </a>
+                </li>
+            }
+
+
+           
+        </ul>
+    </nav>
+}
+</div>

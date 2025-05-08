@@ -66,6 +66,16 @@ namespace LibraryManagmentSystem.BLL.Services
             await _bookRepo.DeleteAsync(id);
         }
 
+        async Task<List<ReadBookDTO>> IBookService.GetFilteredAsync(int filter, int pageNum)
+        {
+            var books = await _bookRepo.GetFilteredAsync(filter, pageNum);
+            return _mapper.Map<List<ReadBookDTO>>(books);
+        }
 
+        async Task<int> IBookService.GetTotalPagesAsync(int filter)
+        {
+            var totalPages = await _bookRepo.GetTotalPagesAsync(filter);
+            return totalPages;
+        }
     }
 }

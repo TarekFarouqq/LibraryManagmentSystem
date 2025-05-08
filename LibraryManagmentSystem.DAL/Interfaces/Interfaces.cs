@@ -27,7 +27,18 @@ namespace LibraryManagmentSystem.DAL.Interfaces
             Task DeleteAsync(int id);
             Task<Book?> GetByIdAsync(int id);
             Task<List<Book>> GetAllAsync();
+            Task<List<Book>> GetFilteredAsync(int filter ,int pageNum);
+            Task<int> GetTotalPagesAsync(int filter);
 
+        }
+
+        public interface ILibraryRepository
+        {
+            Task<Book?> GetBookById(int bookId);
+            Task<BorrowTransaction?> GetActiveTransaction(int bookId);
+            Task AddTransaction(BorrowTransaction transaction);
+            Task UpdateBook(Book book);
+            Task UpdateTransaction(BorrowTransaction transaction);
         }
 
 

@@ -69,6 +69,82 @@ namespace LibraryManagmentSystem.DAL.Repos
             await db.SaveChangesAsync();
         }
 
+        async Task<int> IBookRepository.GetTotalPagesAsync(int filter)
+        {
+            if (filter < 0 || filter > 2)
+            {
+                throw new ArgumentOutOfRangeException(nameof(filter), "Filter must be between 0 and 2.");
+            }
+            else if (filter == 0)
+            {
+                int totalCount = await db.Books
+                    .Include(a => a.Author)
+                    .Include(a => a.BorrowTransactions)
+                    .CountAsync();
 
+                double totalPages = totalCount / 6.0;
+                return (int)Math.Ceiling(totalPages);
+            }
+            else if (filter == 1)
+            {
+                int totalCount = await db.Books
+                    .Where(b => b.IsAvailable)
+                    .Include(a => a.Author)
+                    .Include(a => a.BorrowTransactions)
+                    .CountAsync();
+
+                double totalPages = totalCount / 6.0;
+                return (int)Math.Ceiling(totalPages);
+            }
+            else
+            {
+                int totalCount = await db.Books
+                    .Where(b => !b.IsAvailable)
+                    .Include(a => a.Author)
+                    .Include(a => a.BorrowTransactions)
+                    .CountAsync();
+
+                double totalPages = totalCount / 6.0;
+                return (int)Math.Ceiling(totalPages);
+            }
+        }
+    
+
+        async Task<List<Book>> IBookRepository.GetFilteredAsync(int filter, int pageNum)
+        {
+            if (filter < 0 || filter > 3)
+            {
+                throw new ArgumentOutOfRangeException(nameof(filter), "Filter must be between 0 and 3.");
+            }
+            else if (filter == 0)
+            {
+                return await db.Books
+                    .Skip((pageNum - 1) * 6)
+                    .Take(6)
+                    .Include(a => a.Author)
+                    .Include(a => a.BorrowTransactions)
+                    .ToListAsync();
+            }
+            else if (filter == 1)
+            {
+                return await db.Books
+                    .Where(b => b.IsAvailable)
+                    .Skip((pageNum - 1) * 6)
+                    .Take(6)
+                    .Include(a => a.Author)
+                    .Include(a => a.BorrowTransactions)
+                    .ToListAsync();
+            }
+            else
+            {
+                return await db.Books
+                    .Where(b => !b.IsAvailable)
+                    .Skip((pageNum - 1) * 6)
+                    .Take(6)
+                    .Include(a => a.Author)
+                    .Include(a => a.BorrowTransactions)
+                    .ToListAsync();
+            }
+        }
     }
 }
