@@ -1,29 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LibraryManagmentSystem.Models;
 
-namespace LibraryManagmentSystem.BLL.DTOs
+namespace LibraryManagmentSystem.BLL.DTOs.AuthorDTOs
 {
-    public class InsertAuthorDTO
+    public class ReadAuthorDTO
     {
-
-
-        [Required]
-        [StringLength(255)]
+        public int Id { get; set; }
         public string FullName { get; set; }
-
-        [Required]
-        [EmailAddress]
         public string Email { get; set; }
-
         public string? Website { get; set; }
-
-        [MaxLength(300)]
         public string? Bio { get; set; }
-
+        public ICollection<string> Books { get; } = new List<string>();
     }
 }

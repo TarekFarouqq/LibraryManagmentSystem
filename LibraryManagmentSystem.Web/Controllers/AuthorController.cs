@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
-using LibraryManagmentSystem.BLL.DTOs;
-using LibraryManagmentSystem.Web.ViewModels;
+using LibraryManagmentSystem.BLL.DTOs.AuthorDTOs;
+using LibraryManagmentSystem.Web.ViewModels.AuthorVMs;
 using Microsoft.AspNetCore.Mvc;
 using static LibraryManagmentSystem.BLL.Interfaces.Interfaces;
 

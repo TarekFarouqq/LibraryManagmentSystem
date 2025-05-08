@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using LibraryManagmentSystem.BLL.DTOs;
+using LibraryManagmentSystem.BLL.DTOs.AuthorDTOs;
 using LibraryManagmentSystem.Models;
 using static LibraryManagmentSystem.BLL.Interfaces.Interfaces;
 using static LibraryManagmentSystem.DAL.Interfaces.Interfaces;

@@ -1,7 +1,7 @@
 ﻿using LibraryManagmentSystem.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace LibraryManagmentSystem.Web.ViewModels
+namespace LibraryManagmentSystem.Web.ViewModels.AuthorVMs
 {
     public class ReadAuthorViewModel
     {

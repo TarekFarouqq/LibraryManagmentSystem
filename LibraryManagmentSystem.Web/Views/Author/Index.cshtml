@@ -1,4 +1,5 @@
 ﻿@using LibraryManagmentSystem.Web.ViewModels
+@using LibraryManagmentSystem.Web.ViewModels.AuthorVMs
 @model List<ReadAuthorViewModel>
 
 
@@ -11,7 +12,7 @@
 
 <div class="container">
     <div class=" my-5 company position-relative">
-        <h1 class="pb-4 color  position-relative text-decoration-underline fst-italic text-center">Authors</h1>
+        <h1 class="pb-4 color  position-relative text-decoration-underline fst-italic text-center">Manage Authors</h1>
     </div>
 
     <div>
@@ -46,7 +47,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="booksDropdown-@author.Id">
                                     @foreach (var book in author.Books)
                                     {
-                                        <li><a class="dropdown-item">>@book</a></li>
+                                        <li ><a class="dropdown-item">>  @book</a></li>
                                     }
                                 </ul>
                             </div>

@@ -22,11 +22,15 @@ namespace LibraryManagmentSystem.Models
         [MaxLength(300)]
         public string? Description { get; set; }
 
-       
+        public bool IsAvailable { get; set; } = true;
+
         public int AuthorId { get; set; }
 
         [ForeignKey("AuthorId")]
         public Author Author { get; set; }
+
+        public bool IsDeleted { get; set; } = false;
+
 
 
         public ICollection<BorrowTransaction> BorrowTransactions { get; } = new List<BorrowTransaction>();

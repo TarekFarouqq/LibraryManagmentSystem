@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LibraryManagmentSystem.Web.ViewModels
+namespace LibraryManagmentSystem.Web.ViewModels.AuthorVMs
 {
-    public class UpdateAuthorViewModel
+    public class InsertAuthorViewModel
     {
-        public int Id { get; set; }
+
 
         [Required]
-        [StringLength(100)]
+        [StringLength(255)]
         public string FullName { get; set; }
 
         [Required]
@@ -16,7 +16,7 @@ namespace LibraryManagmentSystem.Web.ViewModels
 
         public string? Website { get; set; }
 
-        [StringLength(300)]
+        [MaxLength(300)]
         public string? Bio { get; set; }
     }
 }

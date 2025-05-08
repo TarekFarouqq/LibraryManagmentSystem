@@ -24,6 +24,8 @@ namespace LibraryManagmentSystem.Models
         [MaxLength(300)]
         public string? Bio { get; set; }
 
+        public bool IsDeleted { get; set; } = false;
+
         public ICollection<Book> Books { get; } = new List<Book>();
     }
 }
