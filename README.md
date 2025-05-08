@@ -9,7 +9,6 @@ A simple Library Management System built with **ASP.NET MVC**, **Entity Framewor
 - ASP.NET MVC (.NET 9)
 - Entity Framework Core (In-Memory)
 - N-Tier Architecture (Models Layer (Models) , Business Logic Layer (BLL) , Data Access Layer (DAL) and Presentation Layer(Web))
-- jQuery for dynamic UI interactions
 - Bootstrap for basic styling
 
 ---
