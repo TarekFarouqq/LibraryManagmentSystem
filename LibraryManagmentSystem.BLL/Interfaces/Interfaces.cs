@@ -16,7 +16,7 @@ namespace LibraryManagmentSystem.BLL.Interfaces
         {
             Task AddAsync(InsertAuthorDTO author);
             Task UpdateAsync(UpdateAuthorDTO author);
-            Task DeleteAsync(int id);
+            Task<bool> DeleteAsync(int id);
             Task<ReadAuthorDTO?> GetByIdAsync(int id);
             Task<List<ReadAuthorDTO>> GetAllAsync();
 

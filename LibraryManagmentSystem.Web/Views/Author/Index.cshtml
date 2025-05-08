@@ -6,7 +6,7 @@
 
 
 @{
-	ViewData["Title"] = "Authors";
+    ViewData["Title"] = "Authors";
 }
 
 
@@ -40,8 +40,8 @@
                         {
                             <div class="dropdown">
                                 <button class="btn text-light  btn-info btn-sm dropdown-toggle" type="button"
-                                        id="booksDropdown-@author.Id" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
+                                id="booksDropdown-@author.Id" data-bs-toggle="dropdown"
+                                aria-expanded="false">
                                     View Books (@author.Books.Count)
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="booksDropdown-@author.Id">
@@ -60,7 +60,13 @@
                     <td>
                         <a asp-controller="author" asp-action="details" asp-route-id="@author.Id"><button class="btn btn-dark btn-ed mx-2">Details </button></a>
                         <a asp-controller="author" asp-action="edit" asp-route-id="@author.Id"><button class="btn btn-dark  btn-ed mx-2">Edit</button></a>
-                        <a asp-controller="author" asp-action="delete" asp-route-id="@author.Id" onclick="return confirm('Delete Student @author.FullName ?!')"><button class="btn btn-danger mt-2 btn-ed mx-2">Delete</button></a>
+
+                        <a asp-controller="author" asp-action="delete" asp-route-id="@author.Id" onclick="return confirm('Delete Author @author.FullName ?!')">
+                            <button class="@(author.Books.ToList().Count() == 0 ? "" : "disabled")   btn  btn-danger mt-2 btn-ed mx-2">Delete</button>
+                        </a>
+                        
+                        
+
                     </td>
 
                 </tr>
@@ -71,3 +77,5 @@
     </table>
 
 </div>
+
+
