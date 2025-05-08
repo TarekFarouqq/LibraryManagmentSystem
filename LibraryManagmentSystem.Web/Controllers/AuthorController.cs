@@ -61,27 +61,36 @@ namespace LibraryManagmentSystem.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
+           
+                if (id <= 0) return BadRequest("Error");
 
-            if (id <=0) return BadRequest("Error");
-
-            var authorDTO = await authorService.GetByIdAsync(id);
-            if (authorDTO == null) return NotFound();
-            var authorVM = mapper.Map<UpdateAuthorViewModel>(authorDTO);
-            return View(authorVM);
+                var authorDTO = await authorService.GetByIdAsync(id);
+                if (authorDTO == null) return NotFound();
+                var authorVM = mapper.Map<UpdateAuthorViewModel>(authorDTO);
+                return View(authorVM);
+           
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(UpdateAuthorViewModel author)
         {
-            await authorService.UpdateAsync(mapper.Map<UpdateAuthorDTO>(author));
+            if (ModelState.IsValid)
+            {
+                await authorService.UpdateAsync(mapper.Map<UpdateAuthorDTO>(author));
             var authorsList = await authorService.GetAllAsync();
             return RedirectToAction("Index", authorsList);
+            }
+            return View();
         }
 
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            var authorDTO = await authorService.GetByIdAsync((int)id);
-            await authorService.DeleteAsync(id);
+            var canDelete = await authorService.DeleteAsync(id);
+            if (!canDelete)
+            {
+                TempData["DeleteError"] = "Cannot delete author because they have one or more books.";
+            }
+
             return RedirectToAction("Index");
         }
     }
