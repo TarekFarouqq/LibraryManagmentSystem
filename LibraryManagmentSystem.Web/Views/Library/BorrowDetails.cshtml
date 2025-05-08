@@ -1,0 +1,89 @@
+﻿@using LibraryManagmentSystem.Web.ViewModels
+@using LibraryManagmentSystem.Web.ViewModels.BookVMs
+@model ReadBookViewModel
+@{
+    ViewData["Title"] = "Book Details";
+    var statusColor = Model.IsAvailable ? "success" : "danger";
+}
+
+<style>
+   
+</style>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10">
+            <div class="book-card p-4 mb-4">
+                <!-- Book Cover & Basic Info -->
+                <div class="row align-items-center mb-4">
+                    <div class="col-12 col-md-4 mb-4 mb-md-0">
+                        <div class="book-cover bg-secondary text-white d-flex align-items-center justify-content-center">
+                            <i class="fas fa-book-open fa-3x"></i>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <h2 class=" fw-bold mb-3">
+                            @Model.Title 
+                            <span class="badge mx-5 bg-@statusColor status-badge me-3">
+                                @(Model.IsAvailable ? "Available" : "Borrowed")
+                            </span>
+                        </h2>
+                        <h5 class="mb-4">
+                            <span class="text-danger">by</span>
+                            <span class="fst-italic">@Model.AuthorName</span>
+                        </h5>
+                        <span class=" fw-bold">@Model.Genre</span>
+                        <div class="mb-5">
+                            <p class="lead">@Model.Description</p>
+                        </div>
+
+                        <!-- Action Button -->
+                        @if (Model.IsAvailable)
+                        {
+                            <a asp-controller="Library" asp-action="BorrowBook" asp-route-id="@Model.Id"
+                               class="btn btn-primary action-btn w-100">
+                                <i class="fas fa-hand-holding me-2"></i>Borrow This Book
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Library" asp-action="ReturnBook" asp-route-id="@Model.Id"
+                               class="btn btn-danger action-btn w-100">
+                                <i class="fas fa-undo me-2"></i>Return This Book
+                            </a>
+                        }
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    
+
+                    <div class="col-12 ">
+                        <div class="bg-white p-4 rounded-3 shadow-sm mb-4 d-flex justify-content-center align-items-center">
+                            <div class="feature-icon  bg-warning">
+                                <i class="fas fa-exclamation-circle fa-2x text-white"></i>
+                            </div>
+                            <span class="text-muted small mx-4">
+                                All borrowed books must be returned within
+                                <span class="fw-bold text-danger">14 days</span>
+                                of borrowing.
+                            </span>
+                        </div>
+
+                       
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="text-center mt-4">
+                <a asp-controller="Book" asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Library
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">

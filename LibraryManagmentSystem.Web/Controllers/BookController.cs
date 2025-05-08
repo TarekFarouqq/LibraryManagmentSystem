@@ -16,11 +16,11 @@ namespace LibraryManagmentSystem.Web.Controllers
         private readonly IMapper mapper;
         private readonly IAuthorService authorService;
 
-        public BookController(IBookService _bookService, IMapper _mapper, IAuthorService authorService)
+        public BookController(IBookService _bookService, IMapper _mapper, IAuthorService _authorService)
         {
             bookService = _bookService;
             mapper = _mapper;
-            this.authorService = authorService;
+            authorService = _authorService;
         }
 
         public async Task<IActionResult> Index()
@@ -67,12 +67,12 @@ namespace LibraryManagmentSystem.Web.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
+            if (id <= 0)
                 return BadRequest("Invalid request");
 
-            var bookDto = await bookService.GetByIdAsync(id.Value);
+            var bookDto = await bookService.GetByIdAsync(id);
             if (bookDto == null)
                 return NotFound();
 
@@ -109,6 +109,9 @@ namespace LibraryManagmentSystem.Web.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
+            if (id <= 0)
+                return BadRequest("Invalid request");
+
             await bookService.DeleteAsync(id);
             return RedirectToAction("Index");
         }

@@ -31,6 +31,16 @@ namespace LibraryManagmentSystem.BLL.Interfaces
             Task<ReadBookDTO?> GetByIdAsync(int id);
             Task<List<ReadBookDTO>> GetAllAsync();
 
+            Task<List<ReadBookDTO>> GetFilteredAsync(int filter , int pageNum);
+
+            Task<int> GetTotalPagesAsync(int filter);
+
+        }
+
+        public interface ILibraryService
+        {
+            Task BorrowBook(int bookId);
+            Task ReturnBook(int bookId);
         }
     }
 }

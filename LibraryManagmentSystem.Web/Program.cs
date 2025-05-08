@@ -33,6 +33,10 @@ namespace LibraryManagmentSystem.Web
             builder.Services.AddScoped<IBookRepository, BookRepo>();
             builder.Services.AddScoped<IBookService, BookService>();
 
+            // Library 
+            builder.Services.AddScoped<ILibraryRepository, LibraryRepo>();
+            builder.Services.AddScoped<ILibraryService, LibraryService>();
+
             // AutoMapper
             builder.Services.AddAutoMapper(typeof(WebMapper).Assembly);
             builder.Services.AddAutoMapper(typeof(BuisnessMapper).Assembly);
@@ -64,7 +68,7 @@ namespace LibraryManagmentSystem.Web
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Author}/{action=Index}/{id?}")
+                pattern: "{controller=library}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
             app.Run();
