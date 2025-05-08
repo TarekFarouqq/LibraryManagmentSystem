@@ -1,0 +1,52 @@
+﻿@using LibraryManagmentSystem.Web.ViewModels
+@using LibraryManagmentSystem.Web.ViewModels.AuthorVMs
+
+
+@model UpdateAuthorViewModel
+
+@{
+    ViewBag.title = "EditAuthor";
+}
+
+
+<div class="container">
+    <div class="row  col-12 p-2 d-flex justify-content-center edit-author-form">
+        <h2>Edit Author</h2>
+        <form asp-controller="author" asp-action="edit" class="col-12 col-md-6 border border-1 rounded shadow mt-3 p-4" method="post">
+            <div class="mb-3 mt-3 visually-hidden ">
+                <label class="form-label h6" asp-for="Id"></label>
+                <input class="form-control" asp-for="Id">
+            </div><!--  -->
+            <div class="mb-3 mt-3 ">
+                <label class="form-label h6" asp-for="FullName"></label>
+                <input class="form-control" asp-for="FullName">
+                <span asp-validation-for="FullName"></span>
+            </div><!--  -->
+            <div class="mb-3 ">
+                <label class="form-label h6" asp-for="Email"></label>
+                <input class="form-control" asp-for="Email">
+                <span asp-validation-for="Email"></span>
+
+            </div><!--  -->
+
+            <div class="mb-3 ">
+                <label class="form-label h6" asp-for="Website"></label>
+                <input class="form-control" asp-for="Website">
+                <span asp-validation-for="Website"></span>
+
+            </div><!--  -->
+            <div class="mb-3 ">
+                <label class="form-label h6" asp-for="Bio"></label>
+                <input class="form-control" asp-for="Bio">
+                <span asp-validation-for="Bio"></span>
+
+            </div><!--  -->
+
+
+
+            <div class="d-flex justify-content-center mt-4 ">
+                <button type="submit" value="submit" class="btn btn-dark mb-3">Update</button>
+            </div>
+        </form>
+    </div><!-- row -->
+</div>

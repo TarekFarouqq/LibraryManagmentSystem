@@ -1,4 +1,14 @@
 using LibraryManagmentSystem.BLL.AutoMapper;
+using LibraryManagmentSystem.BLL.BuisnessMapper;
+
+using LibraryManagmentSystem.DAL;
+using LibraryManagmentSystem.BLL;
+using LibraryManagmentSystem.BLL.Services;
+using LibraryManagmentSystem.DAL.Repos;
+using Microsoft.EntityFrameworkCore;
+using static LibraryManagmentSystem.DAL.Interfaces.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using static LibraryManagmentSystem.BLL.Interfaces.Interfaces;
 
 
 namespace LibraryManagmentSystem.Web
@@ -12,16 +22,37 @@ namespace LibraryManagmentSystem.Web
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            //AutoMapper
-            builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+            // DBContext 
+            builder.Services.AddDbContext<LibraryDBContext>(options => options.UseInMemoryDatabase("LibraryDB"));
+
+            // Author 
+            builder.Services.AddScoped<IAuthorRepository, AuthorRepo>();
+            builder.Services.AddScoped<IAuthorService, AuthorService>();
+
+            // Book 
+            builder.Services.AddScoped<IBookRepository, BookRepo>();
+            builder.Services.AddScoped<IBookService, BookService>();
+
+            // AutoMapper
+            builder.Services.AddAutoMapper(typeof(WebMapper).Assembly);
+            builder.Services.AddAutoMapper(typeof(BuisnessMapper).Assembly);
+
+
 
             var app = builder.Build();
+
+            //Dummy Data For Db Initialization
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<LibraryDBContext>();
+                DbInitializer.Initialize(context); 
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -33,7 +64,7 @@ namespace LibraryManagmentSystem.Web
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{controller=Author}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
             app.Run();

@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using LibraryManagmentSystem.Web.Models;
+using LibraryManagmentSystem.Models;
 
 namespace LibraryManagmentSystem.Web.Controllers;
 

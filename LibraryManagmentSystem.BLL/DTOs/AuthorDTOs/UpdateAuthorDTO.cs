@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryManagmentSystem.Models
+namespace LibraryManagmentSystem.BLL.DTOs.AuthorDTOs
 {
-   public  class Author
+    public class UpdateAuthorDTO
     {
-        public int Id { get; set; }
+        public int Id { get; set; } 
 
         [Required]
-        [StringLength(255)]
+        [StringLength(100)]
         public string FullName { get; set; }
 
         [Required]
@@ -21,11 +21,7 @@ namespace LibraryManagmentSystem.Models
 
         public string? Website { get; set; }
 
-        [MaxLength(300)]
+        [StringLength(300)]
         public string? Bio { get; set; }
-
-        public bool IsDeleted { get; set; } = false;
-
-        public ICollection<Book> Books { get; } = new List<Book>();
     }
 }

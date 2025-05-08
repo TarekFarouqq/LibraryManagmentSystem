@@ -1,0 +1,55 @@
+﻿@using LibraryManagmentSystem.Web.ViewModels
+@using LibraryManagmentSystem.Web.ViewModels.BookVMs
+@model List<ReadBookViewModel>
+
+
+
+
+@{
+    ViewData["Title"] = "Books";
+}
+
+
+<div class="container">
+    <div class=" my-5 company position-relative">
+        <h1 class="pb-4 color  position-relative text-decoration-underline fst-italic text-center">Manage Books</h1>
+    </div>
+
+    <div>
+        <a asp-controller="book" asp-action="addBook"><button class="btn btn-dark mx-2 fw-bold"> + Add Book</button></a>
+    </div>
+
+    <table class="table table-light table-striped text-center mt-3">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Genre</th>
+				<th>Author</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.Id</td>
+                    <td>@book.Title</td>
+					<td>@book.Genre</td>
+                    <td>@book.AuthorName</td>
+                    
+                    
+                    <td>
+                        <a asp-controller="book" asp-action="edit" asp-route-id="@book.Id"><button class="btn btn-dark  btn-ed mx-2">Edit</button></a>
+                        <a asp-controller="book" asp-action="delete" asp-route-id="@book.Id" onclick="return confirm('Delete Book @book.Title ?!')"><button class="btn btn-danger  btn-ed mx-2">Delete</button></a>
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+</div>

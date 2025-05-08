@@ -4,12 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LibraryManagmentSystem.Models;
 
-namespace LibraryManagmentSystem.Models
+namespace LibraryManagmentSystem.BLL.DTOs.AuthorDTOs
 {
-   public  class Author
+    public class InsertAuthorDTO
     {
-        public int Id { get; set; }
+
 
         [Required]
         [StringLength(255)]
@@ -24,8 +25,5 @@ namespace LibraryManagmentSystem.Models
         [MaxLength(300)]
         public string? Bio { get; set; }
 
-        public bool IsDeleted { get; set; } = false;
-
-        public ICollection<Book> Books { get; } = new List<Book>();
     }
 }
