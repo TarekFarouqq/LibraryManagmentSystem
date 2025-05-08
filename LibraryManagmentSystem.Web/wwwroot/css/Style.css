@@ -1,1 +1,94 @@
-﻿
+﻿button{
+   border-radius: 20px 0px 20px 0px !important;
+}
+
+.book-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+    .book-card:hover {
+        transform: translateY(-5px);
+    }
+
+.status-badge {
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.action-btn {
+    padding: 12px 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+    .action-btn:hover {
+        transform: scale(1.05);
+    }
+
+.feature-icon {
+    width: 50px;
+    height: 50px;
+    background: #fff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.book-cover {
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.page-link {
+    margin: 0 5px;
+    border-radius: 8px !important;
+    border: none;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+}
+
+.page-item.active .page-link {
+    background: #3498db;
+    border-color: #3498db;
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.page-link:hover {
+    background: #f8f9fa;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.page-item.disabled .page-link {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.filter-card {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-left: 6px solid #006400; 
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+    .filter-card:hover {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+.filter-select {
+    min-width: 200px;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.3s ease;
+}
+
+    .filter-select:focus {
+        border-color: #006400; 
+        box-shadow: 0 0 0 0.2rem rgba(0, 100, 0, 0.25); 
+    }

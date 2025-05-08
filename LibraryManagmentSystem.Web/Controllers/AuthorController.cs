@@ -46,12 +46,12 @@ namespace LibraryManagmentSystem.Web.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
+            if (id <= 0)
                 return BadRequest("Error");
 
-            var authorDTO = await authorService.GetByIdAsync((int)id);
+            var authorDTO = await authorService.GetByIdAsync(id);
             var authorVM = mapper.Map<ReadAuthorViewModel>(authorDTO);
             if (authorVM == null)
                 return NotFound();
@@ -59,15 +59,13 @@ namespace LibraryManagmentSystem.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
 
-            if (id == null)
-                return BadRequest("Error");
+            if (id <=0) return BadRequest("Error");
 
-            var authorDTO = await authorService.GetByIdAsync((int)id);
-            if (authorDTO == null)
-                return NotFound();
+            var authorDTO = await authorService.GetByIdAsync(id);
+            if (authorDTO == null) return NotFound();
             var authorVM = mapper.Map<UpdateAuthorViewModel>(authorDTO);
             return View(authorVM);
         }
