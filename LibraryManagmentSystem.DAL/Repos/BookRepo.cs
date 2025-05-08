@@ -22,8 +22,8 @@ namespace LibraryManagmentSystem.DAL.Repos
         async Task<List<Book>> IBookRepository.GetAllAsync()
         {
             return await db.Books
-                .AsNoTracking()
-                .Include(a => a.Author )
+                .Include(a => a.Author)
+                .Include(a => a.BorrowTransactions)
                 .ToListAsync();
         }
 
@@ -31,6 +31,7 @@ namespace LibraryManagmentSystem.DAL.Repos
         {
             return await db.Books
                 .Include(a => a.Author)
+                .Include(a => a.BorrowTransactions)
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
 

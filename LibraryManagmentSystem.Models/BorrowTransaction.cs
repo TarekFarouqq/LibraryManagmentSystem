@@ -17,5 +17,8 @@ namespace LibraryManagmentSystem.Models
 
         [ForeignKey("BookId")]
         public Book? Book { get; set; }
+
+        public bool IsDeleted { get; set; } = false;
+
     }
 }

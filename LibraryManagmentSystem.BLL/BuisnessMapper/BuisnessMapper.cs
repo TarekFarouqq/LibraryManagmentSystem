@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using LibraryManagmentSystem.BLL.DTOs;
+using LibraryManagmentSystem.BLL.DTOs.AuthorDTOs;
+using LibraryManagmentSystem.BLL.DTOs.BookDTOs;
 using LibraryManagmentSystem.Models;
 
 namespace LibraryManagmentSystem.BLL.BuisnessMapper
@@ -20,6 +21,16 @@ namespace LibraryManagmentSystem.BLL.BuisnessMapper
             CreateMap<InsertAuthorDTO, Author>();
             CreateMap<UpdateAuthorDTO, Author>();
 
+
+            //Book Profile
+
+            CreateMap<Book, ReadBookDTO>()
+            .ForMember(dest => dest.AuthorName,
+                opt => opt.MapFrom(src => src.Author.FullName));
+            
+
+            CreateMap<InsertBookDTO, Book>();
+            CreateMap<UpdateBookDTO, Book>();
         }
     }
 

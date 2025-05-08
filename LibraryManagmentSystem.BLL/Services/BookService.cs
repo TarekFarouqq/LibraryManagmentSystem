@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using LibraryManagmentSystem.BLL.DTOs.BookDTOs;
 using LibraryManagmentSystem.Models;
 using static LibraryManagmentSystem.BLL.Interfaces.Interfaces;
 using static LibraryManagmentSystem.DAL.Interfaces.Interfaces;
@@ -12,42 +14,58 @@ namespace LibraryManagmentSystem.BLL.Services
    public  class BookService : IBookService
     {
 
-        private readonly IBookRepository bookRepo;
+        private readonly IBookRepository _bookRepo;
+        private readonly IMapper _mapper;
 
-        public BookService(IBookRepository _bookRepo)
+        public BookService(IBookRepository bookRepo, IMapper mapper)
         {
-            bookRepo = _bookRepo;
-        }
-        Task<List<Book>> IBookService.GetAllAsync()
-        {
-            throw new NotImplementedException();
+            _bookRepo = bookRepo;
+            _mapper = mapper;
         }
 
-        Task<Book?> IBookService.GetByIdAsync(int id)
+        async Task<List<ReadBookDTO>> IBookService.GetAllAsync()
         {
-            throw new NotImplementedException();
+            var books = await _bookRepo.GetAllAsync();
+            return _mapper.Map<List<ReadBookDTO>>(books);
         }
 
-        Task IBookService.AddAsync(Book book)
+        async Task<ReadBookDTO?> IBookService.GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var book = await _bookRepo.GetByIdAsync(id);
+            return book == null ? null : _mapper.Map<ReadBookDTO>(book);
         }
 
-        
-        Task IBookService.UpdateAsync(Book book)
+        async Task IBookService.AddAsync(InsertBookDTO newBook)
         {
-            throw new NotImplementedException();
+            if (newBook == null)
+            {
+                throw new ArgumentException("Invalid book data.");
+            }
+
+            var bookEntity = _mapper.Map<Book>(newBook);
+            await _bookRepo.AddAsync(bookEntity);
         }
 
-        Task IBookService.DeleteAsync(int id)
+        async Task IBookService.UpdateAsync(UpdateBookDTO book)
         {
-            throw new NotImplementedException();
+            if (book == null)
+            {
+                throw new ArgumentException("Invalid book data.");
+            }
+
+            var bookEntity = _mapper.Map<Book>(book);
+            await _bookRepo.UpdateAsync(bookEntity);
+        }
+
+        async Task IBookService.DeleteAsync(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException("Invalid Book ID.");
+            }
+            await _bookRepo.DeleteAsync(id);
         }
 
 
-
-
-
-      
     }
 }

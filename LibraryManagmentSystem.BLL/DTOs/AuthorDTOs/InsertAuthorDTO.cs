@@ -4,15 +4,16 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LibraryManagmentSystem.Models;
 
-namespace LibraryManagmentSystem.BLL.DTOs
+namespace LibraryManagmentSystem.BLL.DTOs.AuthorDTOs
 {
-    public class UpdateAuthorDTO
+    public class InsertAuthorDTO
     {
-        public int Id { get; set; } 
+
 
         [Required]
-        [StringLength(100)]
+        [StringLength(255)]
         public string FullName { get; set; }
 
         [Required]
@@ -21,7 +22,8 @@ namespace LibraryManagmentSystem.BLL.DTOs
 
         public string? Website { get; set; }
 
-        [StringLength(300)]
+        [MaxLength(300)]
         public string? Bio { get; set; }
+
     }
 }
